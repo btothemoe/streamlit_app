@@ -3,14 +3,14 @@
 import streamlit as st
 import snowflake.connector
 
+cnn = snowflake.connector.connect(**)
 
-# Initialize connection.
-# Uses st.experimental_singleton to only run once.
-@st.experimental_singleton
-def init_connection():
-    return snowflake.connector.connect(
-        **st.secrets["snowflake"], client_session_keep_alive=True
-    )
+tot_sql = “SELECT top 10 * FROM sales;”
 
-conn = init_connection()
+cur = cnn.cursor()
+cur.execute(tot_sql)
 
+tot_df = cur.fetch_pandas_all()
+
+cur.close()
+cnn.close()
