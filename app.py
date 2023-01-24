@@ -9,7 +9,7 @@ st.set_page_config(layout="wide")
 # Sidebar
 with st.sidebar:
     st.title('INPUTS')
-    st.text_input('6-DIGIT SKU')
+    path = st.text_input('6-DIGIT SKU')
     st.selectbox('COUNTRY', ['US', 'CA'])
     st.button('RUN IT!')
 
@@ -25,10 +25,10 @@ with col1:
 with col2:
     st.header('TESTS')
 
-# Everything is accessible via the st.secrets dict:
+# st.write("DB username:", st.secrets["user"])
+# st.write("DB account:", st.secrets["account"])
 
-st.write("DB username:", st.secrets["user"])
-st.write("DB account:", st.secrets["account"])
+# APROPOS LOOKUP 
 
 
 #Connect to snowflake
@@ -40,7 +40,6 @@ conn = snowflake.connector.connect(
                 database=st.secrets["database"],
                 schema=st.secrets["schema"]
                 )
-
 
 # Perform query.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
