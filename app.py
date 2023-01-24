@@ -1,16 +1,15 @@
 # streamlit_app.py
 
 import streamlit as st
-import snowflake.connector
 
-cnn = snowflake.connector.connect(**)
+# Everything is accessible via the st.secrets dict:
 
-tot_sql = “SELECT top 10 * FROM sales;”
+st.write("DB username:", st.secrets["db_username"])
+st.write("DB password:", st.secrets["db_password"])
 
-cur = cnn.cursor()
-cur.execute(tot_sql)
+# And the root-level secrets are also accessible as environment variables:
 
-tot_df = cur.fetch_pandas_all()
-
-cur.close()
-cnn.close()
+import os
+st.write(
+	"Has environment variables been set:",
+	os.environ["db_username"] == st.secrets["db_username"])
