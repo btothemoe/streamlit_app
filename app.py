@@ -19,11 +19,7 @@ conn = snowflake.connector.connect(
                 schema=st.secrets["schema"]
                 )
 
-cs = conn.cursor()
-try:
-    cs.execute("SELECT current_version()")
-    one_row = cs.fetchone()
-    st.write(one_row[0])
-finally:
-    cs.close()
+col1, col2 = conn.cursor().execute("SELECT top 10 sl_cust, sl_store FROM sales;").fetchone()
+print('{0}, {1}'.format(col1, col2))
+
 conn.close()
