@@ -83,9 +83,9 @@ if sku:
     conn.close()
 
 
-# MASTERINTERFACE LOOKUP
+# ZMRSQL081 LOOKUPS
 if sku:
-
+    
     st.header('MASTERINTERFACE LOOKUP')
     
     #Connect to snowflake
@@ -101,6 +101,33 @@ if sku:
     rows = run_query(f"""SELECT *
 	FROM ZUMZ_ItemMaster 
 	WHERE ItemId = '{sku}'""")
+
+    # Print results.
+    st.dataframe(rows)
+    
+    conn.close()
+
+
+
+# SALESWARP LOOKUP
+if sku:
+
+    st.header('SALESWARP LOOKUP')
+    
+    #Connect to snowflake
+    conn = snowflake.connector.connect(
+                user=st.secrets["user"],
+                password=st.secrets["password"],
+                account=st.secrets["account"],
+                warehouse=st.secrets["warehouse"],
+                database=st.secrets["database"],
+                schema="ZUMZ_SW4X_US"
+                )
+
+    rows = run_query(f"""SELECT *
+	FROM base_products
+	WHERE sku = '{sku}'
+    OR LEFT(sku, 6) = '{sku}'""")
 
     # Print results.
     st.dataframe(rows)
