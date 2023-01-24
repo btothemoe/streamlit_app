@@ -28,26 +28,32 @@ col1, col2 = st.columns((1,1))
 # st.write("DB username:", st.secrets["user"])
 # st.write("DB account:", st.secrets["account"])
 
-# APROPOS LOOKUP 
 
+
+# Perform query.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
+
+
+
+# APROPOS LOOKUP
 if sku:
+
+    st.header('APROPOS LOOKUP')
+    
     #Connect to snowflake
     conn = snowflake.connector.connect(
-                    user=st.secrets["user"],
-                    password=st.secrets["password"],
-                    account=st.secrets["account"],
-                    warehouse=st.secrets["warehouse"],
-                    database=st.secrets["database"],
-                    schema=st.secrets["schema"]
-                    )
-
-    # Perform query.
-    # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
-    @st.experimental_memo(ttl=600)
-    def run_query(query):
-        with conn.cursor() as cur:
-            cur.execute(query)
-            return cur.fetchall()
+                user=st.secrets["user"],
+                password=st.secrets["password"],
+                account=st.secrets["account"],
+                warehouse=st.secrets["warehouse"],
+                database=st.secrets["database"],
+                schema=st.secrets["schema"]
+                )
 
     rows = run_query(f"""SELECT 
         inv_id3				AS ItemId    
@@ -75,3 +81,33 @@ if sku:
     st.dataframe(rows)
 
     conn.close()
+
+
+# MASTERINTERFACE LOOKUP
+if sku:
+
+    st.header('MASTERINTERFACE LOOKUP')
+    
+    #Connect to snowflake
+    conn = snowflake.connector.connect(
+                user=st.secrets["user"],
+                password=st.secrets["password"],
+                account=st.secrets["account"],
+                warehouse=st.secrets["warehouse"],
+                database=st.secrets["database"],
+                schema="ZUMZ_MI_US"
+                )
+
+    rows = run_query(f"""SELECT *
+	FROM Masterinterface.dbo.ZUMZ_ItemMaster 
+	WHERE ItemId = '{sku}'""")
+
+    # Print results.
+    st.dataframe(rows)
+    
+    conn.close()
+
+
+
+
+
