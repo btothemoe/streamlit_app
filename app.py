@@ -18,3 +18,6 @@ conn = snowflake.connector.connect(
                 database=st.secrets["database"],
                 schema=st.secrets["schema"]
                 )
+
+cur = conn.cursor()
+cur.execute('SELECT top 10 * FROM sales;')
