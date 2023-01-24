@@ -30,6 +30,9 @@ with col2:
 
 # APROPOS LOOKUP 
 
+if path:
+    st.write(path)
+
 
 #Connect to snowflake
 conn = snowflake.connector.connect(
