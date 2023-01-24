@@ -99,7 +99,7 @@ if sku:
                 )
 
     rows = run_query(f"""SELECT *
-	FROM Masterinterface.dbo.ZUMZ_ItemMaster 
+	FROM ZUMZ_ItemMaster 
 	WHERE ItemId = '{sku}'""")
 
     # Print results.
