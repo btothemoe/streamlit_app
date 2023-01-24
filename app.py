@@ -50,7 +50,27 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchall()
 
-rows = run_query("SELECT top 10 sl_cust, sl_store FROM sales;")
+rows = run_query("""SELECT 
+      inv_id3				AS ItemId    
+    , TRIM(inv_desc)		AS ItemDesc
+    , TRIM(inv_id2)			AS CategoryId
+    ,CASE
+        WHEN LENGTH(TRIM(inv_subcategory)) = 0 THEN NULL::CHAR(4)
+        ELSE TRIM(inv_subcategory)
+      END					AS SubCatId
+    , TRIM(inv_id1)			AS VendorId
+    , TRIM(inv_ven_id)		AS VendorStyle
+    , inv_first_purch		AS FirstRecvdDate
+    , inv_last_pur			AS LastRecvdDate
+    , inv_cost				AS Cost
+    , inv_reg_price			AS OrigPrice
+    , inv_price				AS CurrPrice
+    , inv_wholesale2		AS SpecialPrice
+    , inv_wholesale1		AS TicketPrice
+    , TRIM(inv_del_flag)	AS atbStatus
+    , inv_user2				AS SubLicense
+  FROM inv
+  WHERE inv_id3 = '359378'""")
 
 # Print results.
 st.dataframe(rows)
