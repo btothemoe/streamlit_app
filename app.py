@@ -31,7 +31,6 @@ def run_query(query):
 rows = run_query("SELECT top 10 sl_cust, sl_store FROM sales;")
 
 # Print results.
-for row in rows:
-    st.write(f"{row[0]} has a :{row[1]}:")
+st.dataframe(rows)
 
 conn.close()
