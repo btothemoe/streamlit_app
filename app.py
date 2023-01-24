@@ -19,11 +19,11 @@ st.write('When you’re wondering why a SKU isn’t showing up online, this tool
 
 col1, col2 = st.columns((1,1))
 
-with col1:
-    st.header('ITEM INFO')
+#with col1:
+#    st.header('ITEM INFO')
 
-with col2:
-    st.header('TESTS')
+#with col2:
+#    st.header('TESTS')
 
 # st.write("DB username:", st.secrets["user"])
 # st.write("DB account:", st.secrets["account"])
@@ -49,7 +49,7 @@ if sku:
             cur.execute(query)
             return cur.fetchall()
 
-    rows = run_query("""SELECT 
+    rows = run_query(f"""SELECT 
         inv_id3				AS ItemId    
         , TRIM(inv_desc)		AS ItemDesc
         , TRIM(inv_id2)			AS CategoryId
@@ -69,7 +69,7 @@ if sku:
         , TRIM(inv_del_flag)	AS atbStatus
         , inv_user2				AS SubLicense
     FROM inv
-    WHERE inv_id3 = '359378'""")
+    WHERE inv_id3 = '{sku}'""")
 
     # Print results.
     st.dataframe(rows)
