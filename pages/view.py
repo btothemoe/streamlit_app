@@ -1,6 +1,5 @@
-# streamlit_app.py
-
 import streamlit as st
+import pandas as pd
 import snowflake.connector
 
 st.set_page_config(
@@ -41,7 +40,15 @@ rows = run_query(f"""
         ,   MODIFIED_UTC as modified 
     FROM ZUMZ_MI_US.ZUMZ_INVENTORY_PRESALE""")
 
+df = pd.DataFrame(
+    rows
+)
+
+
 # Print results.
-st.dataframe(rows)
+st.dataframe(df)
+
+
+
 
 conn.close()
