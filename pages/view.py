@@ -32,7 +32,13 @@ conn = snowflake.connector.connect(
             database=st.secrets["database"]
 )
 
-rows = run_query(f"""SELECT *
+rows = run_query(f"""
+    SELECT 
+            SKU as sku
+        ,   QTY_INITIAL as qty_initial
+        ,   QTY_REMOVED as qty_removed
+        ,   CREATED_UTC as created
+        ,   MODIFIED_UTC as modified 
     FROM ZUMZ_MI_US.ZUMZ_INVENTORY_PRESALE""")
 
 # Print results.
