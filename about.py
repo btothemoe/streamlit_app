@@ -3,8 +3,11 @@
 import streamlit as st
 import snowflake.connector
 
-
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    page_title="Hello",
+    page_icon="👋",
+)
 
 # Sidebar
 with st.sidebar:
