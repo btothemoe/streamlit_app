@@ -41,14 +41,13 @@ rows = run_query(f"""
     FROM ZUMZ_MI_US.ZUMZ_INVENTORY_PRESALE""")
 
 df = pd.DataFrame(
-    rows
+    rows,
+    columns=('sku', 'qty_intitial', 'qty_removed', 'created', 'modified')
 )
 
 
 # Print results.
 st.dataframe(df)
-
-
 
 
 conn.close()
