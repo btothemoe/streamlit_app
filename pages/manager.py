@@ -1,5 +1,4 @@
 # streamlit_app.py
-
 import streamlit as st
 import snowflake.connector
 import pyodbc
@@ -40,7 +39,7 @@ if sku:
     @st.experimental_singleton
     def init_connection():
         return pyodbc.connect(
-            "DRIVER={ODBC Driver 10 for SQL Server};SERVER="
+            "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
             + st.secrets["sql_server"]
             + ";DATABASE="
             + st.secrets["sql_database"]
