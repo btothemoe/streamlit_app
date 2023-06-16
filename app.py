@@ -87,6 +87,8 @@ if (runReport):
         AND (atb.sl_2slsman != '600' OR atb.sl_register != 'OMS')
         """)
 
+    pd.set_option('display.min_rows', 100)
+    
     df = pd.DataFrame(
         rows,
         columns=('Message Type', 'Transaction Type', 'Document Number', 'Line Item Number', 'Document Date',
@@ -96,7 +98,7 @@ if (runReport):
                  'Product Class', 'Quantity', 'Extended Price', 'Input Tax Total', 'Flex Date 1')
     )
 
-
+    
     # Print results.
     st.dataframe(df)
 
