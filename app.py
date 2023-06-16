@@ -11,7 +11,8 @@ st.set_page_config(
 # Sidebar
 with st.sidebar:
     st.title('INPUTS')
-    sku = st.text_input('6-Digit Item ID', '359378')
+    startDate = st.text_input('Start Date')
+    endDate = st.text_input('End Date')
     st.selectbox('Country', ['US', 'CA'])
     st.text("")
     runReport = st.button('RUN IT!')
