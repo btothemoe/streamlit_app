@@ -49,6 +49,14 @@ if (runReport):
     ,   infor.id_trn                    AS "Document Number"
     ,   atb.sl_tran                     AS "Line Item Number"
     ,   infor.ts_trn_bgn                AS "Document Date"
+    ,   atb.sl_date                     AS "Posting Date"
+    ,   'ZUMZ'                          AS "Company Code"
+    ,   'US'                            AS "Division Code"
+    ,   ''                              AS "Customer Class Code"            --Empty For Now
+    ,   atb.sl_store                    AS "Admin Origin Location Code"
+    ,   atb.sl_store                    AS "Physical Origin Location Code"
+    ,   atb.sl_store                    AS "Destination Location Code"
+    ,   ''                              AS "Destination Street Address"     --What are these for in Store?
     FROM ZUMZ_ATB_US.sales              atb
     JOIN ZUMZ_CEN_US.tr_trn             infor
     ON atb.sl_date = infor.dc_dy_bsn
@@ -63,7 +71,9 @@ if (runReport):
 
     df = pd.DataFrame(
         rows,
-        columns=('Message Type', 'Transaction Type', 'Document Number', 'Line Item Number', 'Document Date')
+        columns=('Message Type', 'Transaction Type', 'Document Number', 'Line Item Number', 'Document Date',
+                 'Posting Date', 'Company Code', 'Division Code', 'Customer Class Code', 'Admin Origin Location Code',
+                 'Physical Origin Location Code', 'Destination Location Code', 'Destination Street Address')
     )
 
 
