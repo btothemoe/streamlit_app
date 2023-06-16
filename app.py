@@ -7,6 +7,15 @@ st.set_page_config(
     page_title="Presale Manager",
 )
 
+#Main Section
+# Sidebar
+with st.sidebar:
+    st.title('INPUTS')
+    sku = st.text_input('6-Digit Item ID', '359378')
+    st.selectbox('Country', ['US', 'CA'])
+    st.text("")
+    runReport = st.button('RUN IT!')
+    st.divider()
 
 #Main Section
 st.title('PRESALE MANAGER')
