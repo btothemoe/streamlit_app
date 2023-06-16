@@ -18,8 +18,8 @@ with st.sidebar:
     st.divider()
 
 #Main Section
-st.title('PRESALE MANAGER')
-st.write('When you’re wondering why a SKU isn’t showing up online, this tool has your back!')
+st.title('VERTEX TAX TOOL')
+st.write('Your one stop shop for all things tax!')
 
 
 # Perform query function.
@@ -40,23 +40,25 @@ conn = snowflake.connector.connect(
             database=st.secrets["database"]
 )
 
-rows = run_query(f"""
-    SELECT 
-            SKU as sku
-        ,   QTY_INITIAL as qty_initial
-        ,   QTY_REMOVED as qty_removed
-        ,   CREATED_UTC as created
-        ,   MODIFIED_UTC as modified 
-    FROM ZUMZ_MI_US.ZUMZ_INVENTORY_PRESALE""")
+if (runReport):
+    
+    rows = run_query(f"""
+        SELECT 
+                SKU as sku
+            ,   QTY_INITIAL as qty_initial
+            ,   QTY_REMOVED as qty_removed
+            ,   CREATED_UTC as created
+            ,   MODIFIED_UTC as modified 
+        FROM ZUMZ_MI_US.ZUMZ_INVENTORY_PRESALE""")
 
-df = pd.DataFrame(
-    rows,
-    columns=('sku', 'qty_intitial', 'qty_removed', 'created', 'modified')
-)
-
-
-# Print results.
-st.dataframe(df)
+    df = pd.DataFrame(
+        rows,
+        columns=('sku', 'qty_intitial', 'qty_removed', 'created', 'modified')
+    )
 
 
-conn.close()
+    # Print results.
+    st.dataframe(df)
+
+
+    conn.close()    
