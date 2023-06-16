@@ -7,12 +7,13 @@ st.set_page_config(
     page_title="Presale Manager",
 )
 
+
 #Main Section
 # Sidebar
 with st.sidebar:
     st.title('INPUTS')
-    startDate = st.text_input('Start Date')
-    endDate = st.text_input('End Date')
+    startDate = st.text_input('Start Date', '2023-06-12')
+    endDate = st.text_input('End Date', '2023-06-13')
     st.selectbox('Country', ['US', 'CA'])
     st.text("")
     runReport = st.button('RUN IT!')
@@ -81,7 +82,8 @@ if (runReport):
         AND atb.sl_register = RIGHT(infor.id_ws, 3)
     JOIN ZUMZ_MI_US.ZUMZ_ItemMaster     mi
         ON atb.sl_seq = mi.ItemId
-    WHERE atb.sl_date > CURRENT_DATE - 2
+    WHERE sl_date >= '{startDate}' -- CURRENT_DATE - 2
+        AND sl_date <= '{endDate}'
         AND (atb.sl_2slsman != '600' OR atb.sl_register != 'OMS')
         """)
 
