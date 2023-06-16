@@ -57,6 +57,21 @@ if (runReport):
     ,   atb.sl_store                    AS "Physical Origin Location Code"
     ,   atb.sl_store                    AS "Destination Location Code"
     ,   ''                              AS "Destination Street Address"     --What are these for in Store?
+    ,   ''                              AS "Destination City"               --What are these for in Store?
+    ,   ''                              AS "Destination Main Division"      --What are these for in Store?
+    ,   ''                              AS "Destination Postal Code"        --What are these for in Store?
+    ,   ''                              AS "Destination Country"            --What are these for in Store?
+    ,   CONCAT(LPAD(atb.sl_seq, 6, 0), 
+            LPAD(atb.sl_color, 4, 0), 
+            LPAD(atb.sl_size, 4, 0))    AS "Product Code"
+    ,   mi.VertexTaxCodeId              AS "Product Class"
+    ,   atb.sl_qty                      AS "Quantity"
+    ,   atb.sl_price                    AS "Extended Price"
+    ,   sl_taxamt1 
+            + sl_taxamt2 
+            + sl_taxamt3 
+            + sl_taxamt4                AS "Input Tax Total"
+    ,   infor.ts_trn_bgn                AS "Flex Date 1"
     FROM ZUMZ_ATB_US.sales              atb
     JOIN ZUMZ_CEN_US.tr_trn             infor
     ON atb.sl_date = infor.dc_dy_bsn
@@ -73,7 +88,9 @@ if (runReport):
         rows,
         columns=('Message Type', 'Transaction Type', 'Document Number', 'Line Item Number', 'Document Date',
                  'Posting Date', 'Company Code', 'Division Code', 'Customer Class Code', 'Admin Origin Location Code',
-                 'Physical Origin Location Code', 'Destination Location Code', 'Destination Street Address')
+                 'Physical Origin Location Code', 'Destination Location Code', 'Destination Street Address', 'Destination City',
+                 'Destination Main Division', 'Destination Postal Code', 'Destination Country', 'Product Code',
+                 'Product Class', 'Quantity', 'Extended Price', 'Input Tax Total', 'Flex Date 1')
     )
 
 
