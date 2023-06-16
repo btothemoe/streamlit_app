@@ -49,42 +49,6 @@ if (runReport):
     ,   infor.id_trn                    AS "Document Number"
     ,   atb.sl_tran                     AS "Line Item Number"
     ,   infor.ts_trn_bgn                AS "Document Date"
-    ,   atb.sl_date                     AS "Posting Date"
-    ,   'ZUMZ'                          AS "Company Code"
-    ,   'US'                            AS "Division Code"
-    ,   ''                              AS "Customer Class Code"            --Empty For Now
-    ,   atb.sl_store                    AS "Admin Origin Location Code"
-    ,   atb.sl_store                    AS "Physical Origin Location Code"
-    ,   atb.sl_store                    AS "Destination Location Code"
-    ,   ''                              AS "Destination Street Address"     --What are these for in Store?
-    ,   ''                              AS "Destination City"               --What are these for in Store?
-    ,   ''                              AS "Destination Main Division"      --What are these for in Store?
-    ,   ''                              AS "Destination Postal Code"        --What are these for in Store?
-    ,   ''                              AS "Destination Country"            --What are these for in Store?
-    ,   CONCAT(LPAD(atb.sl_seq, 6, 0), 
-            LPAD(atb.sl_color, 4, 0), 
-            LPAD(atb.sl_size, 4, 0))    AS "Product Code"
-    ,   mi.VertexTaxCodeId              AS "Product Class"
-    ,   atb.sl_qty                      AS "Quantity"
-    ,   atb.sl_price                    AS "Extended Price"
-    ,   sl_taxamt1 
-            + sl_taxamt2 
-            + sl_taxamt3 
-            + sl_taxamt4                AS "Input Tax Total"
-    ,   ''                              AS "Flex Code 1"
-    ,   ''                              AS "Flex Code 2"
-    ,   ''                              AS "Flex Code 3"
-    ,   ''                              AS "Flex Code 4"
-    ,   ''                              AS "Flex Code 5"
-    ,   ''                              AS "Flex Code 6"
-    ,   ''                              AS "Flex Code 7"
-    ,   ''                              AS "Flex Code 8"
-    ,   ''                              AS "Flex Code 9"
-    ,   ''                              AS "Flex Code 10"
-    ,   ''                              AS "Flex Code 11"
-    ,   ''                              AS "Flex Code 12"
-    ,   ''                              AS "Flex Code 17"
-    ,   infor.ts_trn_bgn                AS "Flex Date 1"
     FROM ZUMZ_ATB_US.sales              atb
     JOIN ZUMZ_CEN_US.tr_trn             infor
     ON atb.sl_date = infor.dc_dy_bsn
@@ -99,7 +63,7 @@ if (runReport):
 
     df = pd.DataFrame(
         rows,
-        columns=('sku', 'qty_intitial', 'qty_removed', 'created', 'modified')
+        columns=('Message Type', 'Transaction Type', 'Document Number', 'Line Item Number', 'Document Date')
     )
 
 
