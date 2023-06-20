@@ -4,7 +4,7 @@ import snowflake.connector
 
 st.set_page_config(
     layout="wide",
-    page_title="Presale Manager",
+    page_title="Vertex Tax Tool",
 )
 
 
