@@ -100,7 +100,10 @@ if (runReport):
 
     
     # Print results.
-    st.dataframe(df)
+    st.dataframe(
+        df,
+        height=1000
+    )
 
 
     conn.close()    
