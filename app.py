@@ -102,7 +102,7 @@ if (runReport):
     # Print results.
     st.dataframe(
         df,
-        height=750
+        height=650
     )
 
 
