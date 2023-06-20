@@ -154,7 +154,8 @@ if (runReport):
     # Print results.
     st.dataframe(
         df,
-        height=650
+        height=650,
+        hide_index=True
     )
 
 
